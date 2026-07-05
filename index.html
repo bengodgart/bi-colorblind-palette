@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Colorblind Palette Checker, for BI dashboards</title>
+<meta name="description" content="Paste your dashboard's colors, see how they look to the three common types of colorblindness, get a pass/fail verdict naming the failing pairs, and export a fixed palette straight to Power BI or Tableau. Nothing leaves your browser.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <h1>Colorblind Palette Checker</h1>
+    <p class="tagline">About 1 in 12 men cannot tell some reds and greens apart. Paste your dashboard's hex colors to see how they hold up, get a verdict naming any pair that fails, and export a fixed palette straight into Power BI or Tableau. Everything runs in your browser; no data leaves this page.</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="panel" id="input-panel">
+    <h2><span class="step-num">1</span> Your palette</h2>
+    <div class="q">Try an example</div>
+    <div class="seg" id="example-seg">
+      <button type="button" data-example="unsafe">Red/green status colors</button>
+      <button type="button" data-example="safe">Blue/orange (safe)</button>
+    </div>
+    <label class="palette-label">Hex colors, separated by commas, spaces, or new lines. The # is optional.
+      <textarea id="palette-input" rows="4" placeholder="#e74c3c, #2ecc71, #f1c40f"></textarea>
+    </label>
+    <div id="input-error" class="alert-error hidden"></div>
+    <div class="actions">
+      <button id="check" class="btn btn-primary">Check palette</button>
+      <button id="clear" class="btn">Clear</button>
+      <span class="muted" id="check-hint">Simulates all three common colorblindness types.</span>
+    </div>
+  </section>
+
+  <section class="panel hidden" id="simulation-panel">
+    <h2><span class="step-num">2</span> How it looks to each type</h2>
+    <p class="muted">Each row is one of your colors. The columns show how it appears to someone with that type of colorblindness.</p>
+    <div class="sim-table-wrap">
+      <table class="sim-table" id="sim-table"></table>
+    </div>
+  </section>
+
+  <section class="panel hidden" id="verdict-panel">
+    <h2><span class="step-num">3</span> Verdict</h2>
+    <div id="verdict-summary" class="verdict"></div>
+    <div id="verdict-pairs"></div>
+  </section>
+
+  <section class="panel hidden" id="safe-panel">
+    <h2><span class="step-num">4</span> Suggested safe palette</h2>
+    <p class="muted" id="safe-note"></p>
+    <div class="swatch-row" id="safe-swatches"></div>
+    <div class="actions">
+      <button id="copy-powerbi" class="btn">Copy Power BI theme.json</button>
+      <button id="download-powerbi" class="btn">Download theme.json</button>
+      <button id="copy-tableau" class="btn">Copy Tableau palette</button>
+      <button id="download-tableau" class="btn">Download Preferences snippet</button>
+      <span class="muted" id="export-status"></span>
+    </div>
+    <h3>Power BI theme.json</h3>
+    <pre id="powerbi-out" class="out"></pre>
+    <h3>Tableau color-palette XML</h3>
+    <pre id="tableau-out" class="out"></pre>
+    <p class="hint">Power BI: Desktop, View, Themes, Browse for themes, pick this file. Tableau: paste the block inside a <code>&lt;preferences&gt;</code> section of <code>Preferences.tps</code> in your Tableau Repository folder, then restart Tableau.</p>
+  </section>
+
+</main>
+
+<footer class="site-footer wrap">
+  <p>Free and open source. Runs entirely in your browser. <a href="https://github.com/bengodgart/bi-colorblind-palette">Source on GitHub</a>.</p>
+</footer>
+
+<script src="palette.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
